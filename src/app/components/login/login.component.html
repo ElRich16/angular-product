@@ -1,0 +1,19 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+  <div class="max-w-md w-full bg-white p-6 rounded-lg shadow space-y-4">
+    <h2 class="text-2xl font-semibold text-center">Accedi</h2>
+
+    <form [formGroup]="loginform" (ngSubmit)="loginWithEmail()" class="space-y-4">
+      <input pInputText formControlName="email" placeholder="Email" class="w-full" />
+      <input pInputText type="password" formControlName="password" placeholder="Password" class="w-full" />
+      <button pButton type="submit" label="Accedi" class="w-full" [disabled]="loading"></button>
+    </form>
+
+    <div class="text-center text-sm text-gray-500">oppure</div>
+
+    <button pButton icon="pi pi-google" label="Accedi con Google" class="w-full" (click)="loginWithGoogle()" [disabled]="loading"></button>
+
+    <div *ngIf="loading" class="flex justify-center mt-2">
+      <i class="pi pi-spin pi-spinner text-xl text-blue-600"></i>
+    </div>
+  </div>
+</div>
