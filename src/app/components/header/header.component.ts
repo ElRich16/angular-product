@@ -1,4 +1,5 @@
 
+
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
@@ -7,6 +8,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { Ripple } from 'primeng/ripple';
 import { MenubarModule } from 'primeng/menubar';
+import { getAuth, onAuthStateChanged, signOut, User } from 'firebase/auth';
+
 
 @Component({
   selector: 'app-header',
@@ -24,7 +27,8 @@ import { MenubarModule } from 'primeng/menubar';
 })
 export class HeaderComponent {
   items: MenuItem[] | undefined;
-
+  user : any;
+  showProfile : any;
   ngOnInit() {
     this.items = [
       {
@@ -57,5 +61,23 @@ export class HeaderComponent {
         ],
       },
     ];
+  }
+
+   auth = getAuth();
+  if (auth : any) {
+    onAuthStateChanged(auth, (user: any): void => {
+      this.user = user;
+    });
+  }
+  
+
+  toggleProfileDropdown() {
+    this.showProfile = !this.showProfile;
+  }
+
+  logout() {
+    signOut(getAuth()).then(() => {
+      window.location.href = '/login';
+    });
   }
 }
