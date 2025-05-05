@@ -61,14 +61,21 @@ export class HeaderComponent {
         ],
       },
     ];
+
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+        console.log('✅ Utente loggato:', user);
+      } else {
+        console.log('❌ Nessun utente loggato');
+        this.user = null;
+      }
+    });
+
   }
 
-   auth = getAuth();
-  if (auth : any) {
-    onAuthStateChanged(auth, (user: any): void => {
-      this.user = user;
-    });
-  }
+  
   
 
   toggleProfileDropdown() {
